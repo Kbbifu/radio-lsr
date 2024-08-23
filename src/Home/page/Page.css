@@ -1,0 +1,110 @@
+.page-container{
+  background-color: black;
+  color: White;
+  padding: 20px 20px 50px ;
+}
+.pageBanner-container{
+  padding: 50px 100px;
+}
+.pagebanner{
+  height: 90vh;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+}
+.moreBtn{
+  text-align: center;
+}
+.viewmore{
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin-top: 20px;
+
+}
+
+/* Presenter CONTAINER  */
+
+.presenterPage-container{
+  padding: 20px 143px;
+  padding-left: 143px;
+  
+}
+.Presenter-header, .presenterHeader{
+  padding-bottom: 20px;
+}
+.presenterProfileHolder{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.presenterProfiles{
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.presenterProfile{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  animation: slideInRight 3s forwards;
+}
+.presenterCard li{
+  list-style: none;
+}
+.profileImage{
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  background-color: white;
+}
+.profileImage{
+  text-align: center;
+}
+.Profile{
+  display: flex;
+  flex-direction: column;
+  column-gap: 80px;
+  width: 80%;
+  align-items: center;
+  padding: 20px 0px;
+  text-align: center;
+  /* border-bottom: 1px solid lightslategray; */
+}
+.detailsHeader{
+  width: 70%;
+  margin: auto;
+  /* padding: 20px 150px; */
+}
+
+.banner-content{
+  /* width: 70%; */
+  margin: auto;
+  text-align: justify;
+  /* margin: 20px 40px; */
+  margin-bottom: 40px;
+}
+.author{
+  margin-bottom: 10px;
+
+}
+
+
+
+/* about section  */
+
+
+/* key frames */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
