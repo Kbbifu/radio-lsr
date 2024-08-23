@@ -1,6 +1,5 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box, Toolbar } from '@mui/material';
 import { styled } from '@mui/system';
 import AdminSidebar from './AdminSidebar';
 import AdminHeader from './AdminHeader';
@@ -9,28 +8,28 @@ const AdminLayoutContainer = styled('div')({
   display: 'flex',
 });
 
-const MainContent = styled('div')(({ theme }) => ({
+const MainContent = styled('div')({
   flexGrow: 1,
-  backgroundColor: theme.palette.background.default,
-  padding: theme.spacing(3),
-  marginLeft: 240, // Assuming the sidebar width is 240px
-}));
+  display: 'flex',
+  flexDirection: 'column',
+});
 
-const ContentWrapper = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(3),
-  marginTop: theme.spacing(8), // To accommodate the header height
-}));
+const Content = styled('div')({
+  padding: '16px',
+  backgroundColor: '#f5f5f5',
+  minHeight: '100vh',
+});
 
 const AdminLayout = () => {
   return (
     <AdminLayoutContainer>
-      <AdminSidebar />
+      
       <MainContent>
         <AdminHeader />
-        <Toolbar />
-        <ContentWrapper>
+        <AdminSidebar />
+        <Content>
           <Outlet /> {/* This will render the nested routes */}
-        </ContentWrapper>
+        </Content>
       </MainContent>
     </AdminLayoutContainer>
   );

@@ -15,7 +15,7 @@ const AdminSidebar = () => {
       flexDirection: 'column',
       width: '250px',
       backgroundColor: '#f4f4f4',
-      height: '150vh', // Prend toute la hauteur de la fenêtre
+      height: '100vh', // Prend toute la hauteur de la fenêtre
       overflowY: 'auto', // Permet le défilement si le contenu dépasse
     }}>
       <List>
@@ -48,13 +48,13 @@ const AdminSidebar = () => {
           <ListItemIcon>
             <ScheduleIcon />
           </ListItemIcon>
-          <ListItemText primary="Planning" />
+          <ListItemText primary="Programmes" />
         </ListItem>
         <ListItem button component={Link} to="/manageplaylists">
           <ListItemIcon>
             <PlaylistPlayIcon />
           </ListItemIcon>
-          <ListItemText primary="Playlists" />
+          <ListItemText primary="Prédications" />
         </ListItem>
       </List>
     </div>
