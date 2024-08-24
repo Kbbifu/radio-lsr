@@ -77,7 +77,7 @@ function NavShows() {
               </div>
               <div>
                 <p>Présentateur: {item.presenter}</p> {/* Ajout du champ Auteur */}
-                <p>Chaque : {item.jour} de {item.heureDebut} à {item.heureFin}</p> {/* Ajout du champ Date */}
+                
               </div>
             </div>
           ))}
@@ -98,7 +98,7 @@ function NavShows() {
                 </div>
                 <div>
                   <p>Présentateur: {item.presenter}</p> {/* Ajout du champ Auteur */}
-                  <p>Chaque : {item.jour} de {item.heureDebut} à {item.heureFin}</p> {/* Ajout du champ Date */}
+                  
                 </div>
               </div>
             ))}
