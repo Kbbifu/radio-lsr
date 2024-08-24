@@ -2,71 +2,75 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Card, CardContent, Typography, Container, Box } from '@mui/material';
 import { Line } from 'react-chartjs-2';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase-config';
 import 'chart.js/auto'; // Chart.js
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
-    users: 0,
+    predications: 0,
     newsArticles: 0,
     shows: 0,
     presenters: 0,
   });
 
-  const [recentArticles, setRecentArticles] = useState([]);
-  const [recentShows, setRecentShows] = useState([]);
+  const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    // Simuler la récupération des données
     const fetchData = async () => {
+      // Fetch the counts from Firebase collections
+      const predicationsSnap = await getDocs(collection(db, 'playlists'));
+      const newsArticlesSnap = await getDocs(collection(db, 'news'));
+      const showsSnap = await getDocs(collection(db, 'shows'));
+      const presentersSnap = await getDocs(collection(db, 'presenters'));
+
+      // Update the stats state
       setStats({
-        users: 1500,
-        newsArticles: 50,
-        shows: 20,
-        presenters: 10,
+        predications: predicationsSnap.size,
+        newsArticles: newsArticlesSnap.size,
+        shows: showsSnap.size,
+        presenters: presentersSnap.size,
       });
 
-      setRecentArticles([
-        { id: 1, title: 'Latest News Article 1' },
-        { id: 2, title: 'Latest News Article 2' },
-      ]);
-
-      setRecentShows([
-        { id: 1, title: 'Latest Show 1' },
-        { id: 2, title: 'Latest Show 2' },
-      ]);
+      // Prepare the chart data
+      setChartData({
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], // Example labels; you can customize this
+        datasets: [
+          {
+            label: 'Prédications',
+            data: [400, 600, 800, predicationsSnap.size], // Update last value dynamically
+            backgroundColor: 'rgba(75,192,192,0.2)',
+            borderColor: 'rgba(75,192,192,1)',
+            fill: true,
+          },
+          {
+            label: 'Articles',
+            data: [10, 20, 30, newsArticlesSnap.size], // Update last value dynamically
+            backgroundColor: 'rgba(255,99,132,0.2)',
+            borderColor: 'rgba(255,99,132,1)',
+            fill: true,
+          },
+          {
+            label: 'Emissions',
+            data: [12, 18, 31, showsSnap.size], // Update last value dynamically
+            backgroundColor: 'rgba(50,90,150,0.2)',
+            borderColor: 'rgba(60,100,171,1)',
+            fill: true,
+          },
+        ],
+      });
     };
 
     fetchData();
   }, []);
 
-  // Données du graphique
-  const data = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-    datasets: [
-      {
-        label: 'Users',
-        data: [400, 600, 800, 1500],
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192,1)',
-        fill: true,
-      },
-      {
-        label: 'News Articles',
-        data: [10, 20, 30, 50],
-        backgroundColor: 'rgba(255,99,132,0.2)',
-        borderColor: 'rgba(255,99,132,1)',
-        fill: true,
-      },
-    ],
-  };
-
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        Admin Dashboard
+        Tableau de bord
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        Welcome to the admin dashboard! Here you can manage content and view statistics.
+        Bienvenu dans votre Panneau d'administration! Ici vous pouvez gérer le contenu et voir les statistiques.
       </Typography>
       
       {/* Statistiques */}
@@ -74,15 +78,15 @@ const Dashboard = () => {
         <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Users</Typography>
-              <Typography variant="h4">{stats.users}</Typography>
+              <Typography variant="h6">Prédications</Typography>
+              <Typography variant="h4">{stats.predications}</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">News Articles</Typography>
+              <Typography variant="h6">Articles</Typography>
               <Typography variant="h4">{stats.newsArticles}</Typography>
             </CardContent>
           </Card>
@@ -90,7 +94,7 @@ const Dashboard = () => {
         <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Shows</Typography>
+              <Typography variant="h6">Emissions</Typography>
               <Typography variant="h4">{stats.shows}</Typography>
             </CardContent>
           </Card>
@@ -98,7 +102,7 @@ const Dashboard = () => {
         <Grid item xs={12} md={3}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Presenters</Typography>
+              <Typography variant="h6">Animateurs</Typography>
               <Typography variant="h4">{stats.presenters}</Typography>
             </CardContent>
           </Card>
@@ -110,16 +114,12 @@ const Dashboard = () => {
         <Card>
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              User and News Articles Growth
+              Croissance Prédications, Emissions et Articles
             </Typography>
-            <Line data={data} />
+            {chartData && <Line data={chartData} />}
           </CardContent>
         </Card>
       </Box>
-
-      
-
-      
     </Container>
   );
 };

@@ -137,7 +137,7 @@ const ManagePresenters = () => {
     <Container maxWidth="lg">
       <Box mt={4}>
         <Typography variant="h4" gutterBottom>
-          Manage Presenters
+          GESTION DES ANIMATEURS
         </Typography>
         <TextField
           label="Filter in records..."
@@ -149,7 +149,7 @@ const ManagePresenters = () => {
         />
         <Box display="flex" flexDirection="row" gap={2} mb={3}>
           <TextField
-            label="Name"
+            label="Nom"
             variant="outlined"
             value={newPresenter.name}
             onChange={(e) => setNewPresenter({ ...newPresenter, name: e.target.value })}
@@ -175,7 +175,7 @@ const ManagePresenters = () => {
         />
         <input type="file" accept="image/png, image/jpeg" onChange={handleFileChange} style={{ marginBottom: '20px' }} />
         <Button variant="contained" color="primary" onClick={handleAddPresenter}>
-          Add Presenter
+          Ajouter
         </Button>
       </Box>
       <DataTable
@@ -189,12 +189,12 @@ const ManagePresenters = () => {
 
       {/* Edit Dialog */}
       <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)} fullWidth maxWidth="sm">
-        <DialogTitle>Edit Presenter</DialogTitle>
+        <DialogTitle>Modifier</DialogTitle>
         <DialogContent>
           {editPresenter && (
             <>
               <TextField
-                label="Name"
+                label="Nom"
                 variant="outlined"
                 value={editPresenter.name}
                 onChange={(e) => setEditPresenter({ ...editPresenter, name: e.target.value })}
@@ -225,10 +225,10 @@ const ManagePresenters = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenEditDialog(false)} color="secondary">
-            Cancel
+            Annuler
           </Button>
           <Button onClick={handleEditSave} color="primary" variant="contained">
-            Save
+            Sauvegarder
           </Button>
         </DialogActions>
       </Dialog>

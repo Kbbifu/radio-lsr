@@ -25,7 +25,7 @@ import ManageNews from './Admin/ManageNews'
 import ManagePlaylists from './Admin/ManagePlaylists'
 import AdminLayout from './Admin/AdminLayout';
 import Login from './Auth/Login';
-import AdminHome from './Admin/AdminHome';
+
 import Logout from './Auth/Logout';
 import PrivateRoute from './Auth/PrivateRoute';
 import ManageSchedule from './Admin/ManageSchedule';
@@ -172,7 +172,7 @@ However, despite these challenges which can be found in many countries throughou
             <Route path='/contact' element={<Contact />} />
             <Route path='/news' element={<NavNews />} />
             <Route path='/presenters' element={<NavPresenters />} />
-            <Route path='/waserock-tv' element={<NavTv />} />
+            <Route path='/programme' element={<NavTv />} />
             <Route path='/programmes' element={<NavShows />} />
             <Route path='/podcast' element={<Podcast />} />
 
@@ -182,13 +182,16 @@ However, despite these challenges which can be found in many countries throughou
             <Route path='/login' element={<Login />} />
             
             {/* Private Admin Routes */}
-            <Route path='/admin/*' element={<PrivateRoute element={<AdminLayout />} />} />
-            <Route path='dashboard' element={<PrivateRoute element={<Dashboard />} />} />
-            <Route path='manageshows' element={<PrivateRoute element={<ManageShows />} />} />
-            <Route path='manageplaylists' element={<PrivateRoute element={<ManagePlaylists />} />} />
-            <Route path='managenews' element={<PrivateRoute element={<ManageNews />} />} />
-            <Route path='manageschedule' element={<PrivateRoute element={<ManageSchedule />} />} />
-            <Route path='managepresenters' element={<PrivateRoute element={<ManagePresenters />} />} />
+            <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
+              
+                <Route path='dashboard' element={<Dashboard />} />
+                <Route path='manageshows' element={<ManageShows />} />
+                <Route path='manageplaylists' element={<ManagePlaylists />} />
+                <Route path='managenews' element={<ManageNews />} />
+                <Route path='manageschedule' element={<ManageSchedule />} />
+                <Route path='managepresenters' element={<ManagePresenters />} />
+              
+            </Route>
           </Routes>
         </DataContext.Provider>
       </BrowserRouter>

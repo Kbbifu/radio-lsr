@@ -26,6 +26,9 @@ function Footer() {
               <Link to={'/contact'} className='myLink'>
                 <li>Contacts</li>
               </Link>
+              <Link to={'/admin'} className='myLink'>
+                <li>Administration</li>
+              </Link>
             </div>
           </div>
         </div>

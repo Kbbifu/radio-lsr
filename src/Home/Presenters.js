@@ -32,27 +32,24 @@ function Presenters() {
   };
 
   return (
-    <div>
-      <div className='presenterContainer'>
-        <div className='presenterHeader mb-header'>
-          <h1 className='headersFont'>Nos Animateurs</h1>
-        </div>
-        <div className='presenterProfileHolder'>
-          <div className='presenterProfiles'>
-            {presenters.map((item) => {
-              
-              return (
-                <div className='presenterCard' key={item.id}>
-                  <div className='sliderCardImg'>
-                    <img src={item.photo} style={imageStylemobile} alt={item.name} />
-                  </div>
-                  <li className=''>
-                    <h3>{item.name}</h3>
-                  </li>
+    <div className='presenterContainer'>
+      <div className='presenterHeader mb-header'>
+        <h1 className='headersFont'>Nos Animateurs</h1>
+      </div>
+      <div className='presenterProfileHolder'>
+        <div className='presenterGrid'>
+          {presenters.map((item) => {
+            return (
+              <div className='presenterCard' key={item.id}>
+                <div className='sliderCardImg'>
+                  <img src={item.photo} style={imageStylemobile} alt={item.name} />
                 </div>
-              );
-            })}
-          </div>
+                <li>
+                  <h3>{item.name}</h3>
+                </li>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

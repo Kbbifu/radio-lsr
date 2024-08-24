@@ -13,10 +13,10 @@ function Home() {
     
   return (
     <div>
-    
+      
       <Nav/>
       <HomeBanner/>
-    
+      
       
       
       <News id='#News' />

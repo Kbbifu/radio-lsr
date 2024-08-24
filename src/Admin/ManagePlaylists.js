@@ -21,6 +21,8 @@ const ManagePlaylists = () => {
   const [editDescription, setEditDescription] = useState('');
   const [editCategory, setEditCategory] = useState('');
   const [editAuthor, setEditAuthor] = useState('');
+  const [editAudioFile, setEditAudioFile] = useState(null);
+  const [EditCoverImage, setEditCoverImage] = useState(null);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -74,23 +76,28 @@ const ManagePlaylists = () => {
     setEditDescription(description);
     setEditCategory(category);
     setEditAuthor(author);
+    setEditAudioFile(null);
+    setEditCoverImage(null);
   };
 
   const handleUpdatePlaylist = async () => {
-    if (editId && editTitle && editDescription && editCategory && editAuthor) {
+    if (editId && editTitle && editDescription && editCategory && editAuthor && editAudioFile && setEditCoverImage) {
       const playlistDoc = doc(db, 'playlists', editId);
       await updateDoc(playlistDoc, {
         title: editTitle,
         description: editDescription,
         category: editCategory,
         author: editAuthor,
+        audiofile: editAudioFile,
+        coverimage: setEditCoverImage,
       });
       setEditId(null);
       setEditTitle('');
       setEditDescription('');
       setEditCategory('');
       setEditAuthor('');
-
+      setEditAudioFile(null);
+      setEditCoverImage(null);
       const playlistsCollection = collection(db, 'playlists');
       const playlistsSnapshot = await getDocs(playlistsCollection);
       const playlistsList = playlistsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -107,10 +114,12 @@ const ManagePlaylists = () => {
   };
 
   const columns = [
-    { name: 'Title', selector: row => row.title, sortable: true },
+    { name: 'Titre', selector: row => row.title, sortable: true },
     { name: 'Description', selector: row => row.description, sortable: false },
-    { name: 'Category', selector: row => row.category, sortable: true },
-    { name: 'Author', selector: row => row.author, sortable: true },
+    { name: 'Categorie', selector: row => row.category, sortable: true },
+    { name: 'Auteur/Prédicateur', selector: row => row.author, sortable: true },
+    { name: 'Audio', selector: row => row.audioURL, sortable: false},
+    { name: 'Image', selector: row => row.coverImageURL, sortable: false},
     { name: 'Actions', cell: row => (
       <>
         <IconButton color="primary" onClick={() => handleEdit(row.id, row.title, row.description, row.category, row.author)}>
@@ -125,15 +134,15 @@ const ManagePlaylists = () => {
 
   return (
     <Container sx={{ padding: '20px' }}>
-      <Typography variant="h4" gutterBottom>Manage Playlists</Typography>
+      <Typography variant="h4" gutterBottom>GESTION DES PREDICATIONS ET PODCASTS</Typography>
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Card sx={{ marginBottom: '20px' }}>
             <CardContent>
-              <Typography variant="h6">Add Playlist</Typography>
+              <Typography variant="h6">Ajouter</Typography>
               <TextField
-                label="Title"
+                label="Titre"
                 fullWidth
                 margin="normal"
                 value={newTitle}
@@ -149,14 +158,14 @@ const ManagePlaylists = () => {
                 onChange={(e) => setNewDescription(e.target.value)}
               />
               <TextField
-                label="Category"
+                label="Categorie"
                 fullWidth
                 margin="normal"
                 value={newCategory}
                 onChange={(e) => setNewCategory(e.target.value)}
               />
               <TextField
-                label="Author"
+                label="Auteur/Prédicateur"
                 fullWidth
                 margin="normal"
                 value={newAuthor}
@@ -173,7 +182,7 @@ const ManagePlaylists = () => {
                 onChange={(e) => setNewCoverImage(e.target.files[0])}
               />
               <Button variant="contained" color="primary" onClick={handleAddPlaylist}>
-                Add Playlist
+                Ajouter
               </Button>
             </CardContent>
           </Card>
@@ -183,9 +192,9 @@ const ManagePlaylists = () => {
           <Grid item xs={12} md={6}>
             <Card sx={{ marginBottom: '20px' }}>
               <CardContent>
-                <Typography variant="h6">Edit Playlist</Typography>
+                <Typography variant="h6">Modifier</Typography>
                 <TextField
-                  label="Title"
+                  label="Titre"
                   fullWidth
                   margin="normal"
                   value={editTitle}
@@ -201,25 +210,35 @@ const ManagePlaylists = () => {
                   onChange={(e) => setEditDescription(e.target.value)}
                 />
                 <TextField
-                  label="Category"
+                  label="Categorie"
                   fullWidth
                   margin="normal"
                   value={editCategory}
                   onChange={(e) => setEditCategory(e.target.value)}
                 />
                 <TextField
-                  label="Author"
+                  label="Auteur/Prédicateur"
                   fullWidth
                   margin="normal"
                   value={editAuthor}
                   onChange={(e) => setEditAuthor(e.target.value)}
                 />
+                <input
+                type="file"
+                accept="audio/*"
+                onChange={(e) => setEditAudioFile(e.target.files[0])}
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setEditCoverImage(e.target.files[0])}
+              />
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
                   <Button variant="contained" color="primary" onClick={handleUpdatePlaylist}>
-                    Update Playlist
+                    Sauvegarder
                   </Button>
                   <Button variant="outlined" color="secondary" onClick={() => setEditId(null)}>
-                    Cancel
+                    Annuler
                   </Button>
                 </div>
               </CardContent>
@@ -228,7 +247,7 @@ const ManagePlaylists = () => {
         )}
       </Grid>
 
-      <Typography variant="h6" gutterBottom>Playlists List</Typography>
+      <Typography variant="h6" gutterBottom>Liste de nos prédications</Typography>
       <Paper sx={{ backgroundColor: '#fff', borderRadius: '4px', padding: '20px' }}>
         <DataTable
           columns={columns}

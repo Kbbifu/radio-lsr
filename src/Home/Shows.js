@@ -58,7 +58,7 @@ function Shows() {
                       {item.title} 
                     </h3>
                     <p>Présentateur: {item.presenter}</p> {/* Ajout du champ Auteur */}
-                    <p>Chaque : {item.jour} de {item.heureDebut} à {item.heureFin}</p>
+                    
                   </li>
                 </div>
               );
@@ -85,7 +85,7 @@ function Shows() {
                       {item.title}
                     </h3>
                     <p>Présentateur: {item.presenter}</p> {/* Ajout du champ Auteur */}
-                    <p>Chaque : {item.jour} de {item.heureDebut} à {item.heureFin}</p> {/* Ajout du champ Date */}
+                    
                   </li>
                 </div>
               );

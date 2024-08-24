@@ -1,18 +1,23 @@
-// src/Auth/Logout.js
+// src/Admin/AdminHeader.js
 import React from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase-config';
+import { useNavigate } from 'react-router-dom';
 
-const Logout = () => {
+const AdminHeader = () => {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (err) {
-      console.error(err);
-    }
+    await signOut(auth);
+    navigate('/login'); // Redirect to login after logout
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <header>
+      <h1>Admin Panel</h1>
+      <button onClick={handleLogout}>Logout</button>
+    </header>
+  );
 };
 
-export default Logout;
+export default AdminHeader;

@@ -184,12 +184,12 @@ const ManageSchedule = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        Manage Schedule
+        GESTION DE LA GRILLE DES PROGRAMMES
       </Typography>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleOpenDialog}>
-          Add Schedule
+          Ajouter
         </Button>
         <TextField
           label="Filter records"
@@ -199,7 +199,7 @@ const ManageSchedule = () => {
           onChange={e => setFilterText(e.target.value)}
         />
         <Button variant="contained" color="primary" startIcon={<PrintIcon />} onClick={handlePrint}>
-          Print
+          imprimer
         </Button>
       </div>
 
@@ -216,7 +216,7 @@ const ManageSchedule = () => {
       />
 
       <Dialog open={open} onClose={handleCloseDialog}>
-        <DialogTitle>{editId ? 'Edit Schedule' : 'Add Schedule'}</DialogTitle>
+        <DialogTitle>{editId ? 'Modifier' : 'Ajouter'}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -265,7 +265,7 @@ const ManageSchedule = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="secondary">
-            Cancel
+            Annuler
           </Button>
           <Button onClick={editId ? handleUpdateSchedule : handleAddSchedule} color="primary">
             {editId ? 'Update' : 'Add'}

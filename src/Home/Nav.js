@@ -51,9 +51,9 @@ useEffect( () => {
     boxSizing:'BorderBox',
   }
   const logoStyle ={
-    width:'77px',
+    width:'300px',
     height:'100px',
-    padding:'15px 6px'
+    padding:'30px 10px'
   }
 
   return (
@@ -64,7 +64,7 @@ useEffect( () => {
         <Link to={'/'} className='nav_brand'>
           <img
             src='/favicon.ico'
-            alt=''
+            alt='LSR FM'
             style={logoStyle}
             className='logostyle'
           />
@@ -103,15 +103,11 @@ useEffect( () => {
             </Link>
           </li>
           <li className='nav_item'>
-            <Link className='nav_link' to={'/waserock-tv'}>
+            <Link className='nav_link' to={'/programme'}>
               Programme
             </Link>
           </li>
-          <li className='nav_item'>
-            <Link className='nav_link' to={'/about'}>
-              Qui sommes-nous?
-            </Link>
-          </li>
+          
         </ul>
         <div className={toggleIcon} onClick={navToggler}>
           <div className='line1'></div>
@@ -142,7 +138,7 @@ useEffect( () => {
         <Link className='nav_link' to={'/podcast'}>
           <li className='nav_item'>Prédications</li>
         </Link>
-        <Link className='nav_link' to={'/waserock-tv'}>
+        <Link className='nav_link' to={'/programme'}>
           <li className='nav_item'>Programme</li>
         </Link>
         <li className='nav_item'>

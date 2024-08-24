@@ -1,22 +1,74 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore'; // Firestore functions
+import { db } from '../firebase-config'; // Firebase config
 import Nav from './Nav';
 import HomeBanner from './HomeBanner';
 import Footer from './Footer';
 
 function Radio() {
-  const [time, setTime] = useState(new Date())
-  useEffect(()=>{
-    const timer = setInterval(()=>{
+  const [time, setTime] = useState(new Date());
+  const [onAirShow, setOnAirShow] = useState('');
+  const [upNextPresenter, setUpNextPresenter] = useState('');
+
+  // Fetch schedule data from Firestore
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        const schedulesCollection = collection(db, 'schedules'); // Access the 'schedules' collection
+        const schedulesSnapshot = await getDocs(schedulesCollection); // Fetch all documents
+        const schedulesList = schedulesSnapshot.docs.map(doc => doc.data()); // Map through the documents to extract data
+        
+        // Find the current show and the next presenter based on the time
+        findCurrentShow(schedulesList);
+      } catch (error) {
+        console.error('Error fetching schedules:', error);
+      }
+    };
+
+    fetchSchedule(); // Call the function to fetch data
+
+    // Update the time every second
+    const timer = setInterval(() => {
       setTime(new Date());
-    }, 1000)
+    }, 1000);
+
     return () => {
       clearInterval(timer);
     };
-  },[]);
+  }, []);
+
+  const findCurrentShow = (schedulesList) => {
+    const currentTime = time.toLocaleTimeString('fr-FR', { hour12: false });
+    
+    let currentShow = null;
+    let nextShow = null;
+
+    // Sort the schedules by start time
+    const sortedSchedules = schedulesList.sort((a, b) =>
+      a.heureDebut.localeCompare(b.heureDebut)
+    );
+
+    for (let i = 0; i < sortedSchedules.length; i++) {
+      const show = sortedSchedules[i];
+      if (currentTime >= show.heureDebut && currentTime < show.heureFin) {
+        currentShow = show;
+        nextShow = sortedSchedules[i + 1] || sortedSchedules[0]; // Next show or loop to the first show
+        break;
+      }
+    }
+
+    if (currentShow) {
+      setOnAirShow(currentShow.title);
+      setUpNextPresenter(nextShow ? nextShow.presenter : '');
+    } else {
+      setOnAirShow('Aucune émission');
+      setUpNextPresenter('Aucun animateur');
+    }
+  };
+
   return (
     <div>
       <Nav />
-      
 
       <div className='hidder'>
         <span className='radioShedule'>
@@ -33,10 +85,10 @@ function Radio() {
                   borderRadius: '5px',
                 }}
               >
-                On Air:
+                En direct:
               </span>
               <span style={{ fontWeight: 'lighter', marginLeft: '10px' }}>
-                Détente Musicale
+                {onAirShow}
               </span>
             </h4>
           </div>
@@ -50,10 +102,10 @@ function Radio() {
                   borderRadius: '5px',
                 }}
               >
-                Up Next:
+                Par:
               </span>
               <span style={{ fontWeight: 'lighter', marginLeft: '10px' }}>
-                Le Grand Journal
+                {upNextPresenter}
               </span>
             </h4>
           </div>
@@ -73,9 +125,9 @@ function Radio() {
                   marginBottom: '5px',
                 }}
               >
-                On Air:
+                En direct:
               </span>
-              <span>Sirin Noma</span>
+              <span>{onAirShow}</span>
             </h4>
             <h4 style={{ display: 'flex', flexDirection: 'column' }}>
               <span
@@ -87,23 +139,22 @@ function Radio() {
                   marginBottom: '5px',
                 }}
               >
-                Up Next:
+                Par:
               </span>
-              <span>Journal</span>
+              <span>{upNextPresenter}</span>
             </h4>
           </div>
         </div>
       </div>
 
       <div className='radio'>
-        { <iframe
-        
+        <iframe
           src='https://zeno.fm/radio/living-stone-radio-nqu6/'
           width='100%'
           height='100%'
-          frameborder='0'
+          frameBorder='0'
           scrolling='no'
-        ></iframe> }
+        ></iframe>
         <img src='/IMG-20240731-WA0051.jpg' alt='' />
       </div>
       <Footer />
@@ -111,4 +162,4 @@ function Radio() {
   );
 }
 
-export default Radio
+export default Radio;

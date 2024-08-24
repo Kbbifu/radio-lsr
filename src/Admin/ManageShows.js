@@ -16,9 +16,7 @@ const ManageShows = () => {
   const [shows, setShows] = useState([]);
   const [newTitle, setNewTitle] = useState('');
   const [newPresenter, setNewPresenter] = useState('');
-  const [newJour, setNewJour] = useState('Lundi'); // New jour state
-  const [newHeureDebut, setNewHeureDebut] = useState(''); // New heureDebut state
-  const [newHeureFin, setNewHeureFin] = useState(''); // New heureFin state
+  const [newDescription, setNewDescription] = useState(''); // New jour state
   const [newPhotoFile, setNewPhotoFile] = useState(null);
   const [editId, setEditId] = useState(null);
   const [open, setOpen] = useState(false);
@@ -40,7 +38,7 @@ const ManageShows = () => {
   };
 
   const handleAddShow = async () => {
-    if (newTitle && newPresenter && newJour && newHeureDebut && newHeureFin) {
+    if (newTitle && newPresenter && newDescription) {
       let photoUrl = '';
       if (newPhotoFile) {
         const photoRef = ref(storage, `shows/${newPhotoFile.name}`);
@@ -51,9 +49,7 @@ const ManageShows = () => {
       await addDoc(collection(db, 'shows'), {
         title: newTitle,
         presenter: newPresenter,
-        jour: newJour,
-        heureDebut: newHeureDebut,
-        heureFin: newHeureFin,
+        description: newDescription,
         photo: photoUrl,
       });
 
@@ -62,18 +58,16 @@ const ManageShows = () => {
     }
   };
 
-  const handleEdit = (id, title, presenter, jour, heureDebut, heureFin, photo) => {
+  const handleEdit = (id, title, presenter, description, photo) => {
     setEditId(id);
     setNewTitle(title);
     setNewPresenter(presenter);
-    setNewJour(jour);
-    setNewHeureDebut(heureDebut);
-    setNewHeureFin(heureFin);
+    setNewDescription(description);
     setOpen(true);
   };
 
   const handleUpdateShow = async () => {
-    if (editId && newTitle && newPresenter && newJour && newHeureDebut && newHeureFin) {
+    if (editId && newTitle && newPresenter && newDescription) {
       let photoUrl = '';
       if (newPhotoFile) {
         const photoRef = ref(storage, `shows/${newPhotoFile.name}`);
@@ -85,9 +79,7 @@ const ManageShows = () => {
       await updateDoc(showDoc, {
         title: newTitle,
         presenter: newPresenter,
-        jour: newJour,
-        heureDebut: newHeureDebut,
-        heureFin: newHeureFin,
+        description: newDescription,
         photo: photoUrl || shows.find(show => show.id === editId).photo,
       });
 
@@ -100,9 +92,8 @@ const ManageShows = () => {
     setEditId(null);
     setNewTitle('');
     setNewPresenter('');
-    setNewJour('Lundi');
-    setNewHeureDebut('');
-    setNewHeureFin('');
+    setNewDescription('');
+    
     setNewPhotoFile(null);
     setOpen(false);
   };
@@ -138,30 +129,21 @@ const ManageShows = () => {
 
   const columns = [
     {
-      name: 'Title',
+      name: 'Titre',
       selector: row => row.title,
       sortable: true,
     },
     {
-      name: 'Presenter',
+      name: 'Animateur',
       selector: row => row.presenter,
       sortable: true,
     },
     {
-      name: 'Jour',
-      selector: row => row.jour,
+      name: 'Description',
+      selector: row => row.Description,
       sortable: true,
     },
-    {
-      name: 'Heure de début',
-      selector: row => row.heureDebut,
-      sortable: true,
-    },
-    {
-      name: 'Heure de fin',
-      selector: row => row.heureFin,
-      sortable: true,
-    },
+    
     {
       name: 'Badge',
       selector: row => row.photo ? <Avatar src={row.photo} alt={row.title} /> : 'No Badge',
@@ -171,7 +153,7 @@ const ManageShows = () => {
       name: 'Actions',
       cell: row => (
         <>
-          <IconButton color="primary" onClick={() => handleEdit(row.id, row.title, row.presenter, row.jour, row.heureDebut, row.heureFin, row.photo)}>
+          <IconButton color="primary" onClick={() => handleEdit(row.id, row.title, row.presenter, row.Description,  row.photo)}>
             <EditIcon />
           </IconButton>
           <IconButton color="secondary" onClick={() => handleDeleteShow(row.id)}>
@@ -185,12 +167,12 @@ const ManageShows = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        Manage Shows
+        GESTION DES EMISSIONS
       </Typography>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleOpenDialog}>
-          Add Show
+          Ajouter
         </Button>
         <TextField
           label="Filter records"
@@ -200,7 +182,7 @@ const ManageShows = () => {
           onChange={e => setFilterText(e.target.value)}
         />
         <Button variant="contained" color="primary" startIcon={<PrintIcon />} onClick={handlePrint}>
-          Print
+          imprimer
         </Button>
       </div>
 
@@ -217,12 +199,12 @@ const ManageShows = () => {
       />
 
       <Dialog open={open} onClose={handleCloseDialog}>
-        <DialogTitle>{editId ? 'Edit Show' : 'Add Show'}</DialogTitle>
+        <DialogTitle>{editId ? 'Modifier' : 'Ajouter'}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            label="Title"
+            label="Titre"
             type="text"
             fullWidth
             value={newTitle}
@@ -230,42 +212,20 @@ const ManageShows = () => {
           />
           <TextField
             margin="dense"
-            label="Presenter"
+            label="Animateur"
             type="text"
             fullWidth
             value={newPresenter}
             onChange={(e) => setNewPresenter(e.target.value)}
           />
-          <FormControl fullWidth margin="dense">
-            <InputLabel>Jour</InputLabel>
-            <Select
-              value={newJour}
-              onChange={(e) => setNewJour(e.target.value)}
-            >
-              <MenuItem value="Lundi">Lundi</MenuItem>
-              <MenuItem value="Mardi">Mardi</MenuItem>
-              <MenuItem value="Mercredi">Mercredi</MenuItem>
-              <MenuItem value="Jeudi">Jeudi</MenuItem>
-              <MenuItem value="Vendredi">Vendredi</MenuItem>
-              <MenuItem value="Samedi">Samedi</MenuItem>
-              <MenuItem value="Dimanche">Dimanche</MenuItem>
-            </Select>
-          </FormControl>
+          
           <TextField
             margin="dense"
-            label="Heure de début"
-            type="time"
+            label="Description"
+            type="text"
             fullWidth
-            value={newHeureDebut}
-            onChange={(e) => setNewHeureDebut(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            label="Heure de fin"
-            type="time"
-            fullWidth
-            value={newHeureFin}
-            onChange={(e) => setNewHeureFin(e.target.value)}
+            value={newDescription}
+            onChange={(e) => setNewDescription(e.target.value)}
           />
           <input
             type="file"
@@ -276,10 +236,10 @@ const ManageShows = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="secondary">
-            Cancel
+            Annuler
           </Button>
           <Button onClick={editId ? handleUpdateShow : handleAddShow} color="primary">
-            {editId ? 'Update' : 'Add'}
+            {editId ? 'Modifier' : 'Ajouter'}
           </Button>
         </DialogActions>
       </Dialog>

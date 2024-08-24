@@ -185,12 +185,12 @@ const ManageNews = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>
-        Manage News
+        GESTION DE L'ACTUALITE
       </Typography>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
         <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleOpenDialog}>
-          Add News
+          Ajouter une actualité
         </Button>
         <TextField
           label="Filter records"
@@ -200,7 +200,7 @@ const ManageNews = () => {
           onChange={e => setFilterText(e.target.value)}
         />
         <Button variant="contained" color="primary" startIcon={<PrintIcon />} onClick={handlePrint}>
-          Print
+          Imprimer
         </Button>
       </div>
 
@@ -217,12 +217,12 @@ const ManageNews = () => {
       />
 
       <Dialog open={open} onClose={handleCloseDialog}>
-        <DialogTitle>{editId ? 'Edit News' : 'Add News'}</DialogTitle>
+        <DialogTitle>{editId ? 'Modifier' : 'Ajouter'}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            label="Title"
+            label="Titre"
             type="text"
             fullWidth
             value={newTitle}
@@ -230,7 +230,7 @@ const ManageNews = () => {
           />
           <TextField
             margin="dense"
-            label="Content"
+            label="Contenu"
             type="text"
             fullWidth
             multiline
@@ -240,7 +240,7 @@ const ManageNews = () => {
           />
           <TextField
             margin="dense"
-            label="Author"
+            label="Auteur"
             type="text"
             fullWidth
             value={newAuthor}
@@ -248,14 +248,14 @@ const ManageNews = () => {
           />
           <TextField
             margin="dense"
-            label="Published Date"
+            label="Date de publication"
             type="datetime-local"
             fullWidth
             value={newPublishedDate}
             onChange={(e) => setNewPublishedDate(e.target.value)}
           />
           <FormControl fullWidth margin="dense">
-            <InputLabel>Category</InputLabel>
+            <InputLabel>Categorie</InputLabel>
             <Select
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
@@ -276,10 +276,10 @@ const ManageNews = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="secondary">
-            Cancel
+            Annuler
           </Button>
           <Button onClick={editId ? handleUpdateNews : handleAddNews} color="primary">
-            {editId ? 'Update' : 'Add'}
+            {editId ? 'Modifier' : 'Ajouter'}
           </Button>
         </DialogActions>
       </Dialog>
