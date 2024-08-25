@@ -62,7 +62,7 @@ function News() {
 
   return (
     <div>
-      {/* LATEST NEWS SECTION */}
+      
       <div className='gencontainer'>
         <div className='gridcontainer'>
         
@@ -90,7 +90,7 @@ function News() {
             </div>
 
           )}
-
+       
           {/* A LA UNE SECTION */}
           <div className='aLaUne'>
             <h2>A LA UNE</h2>
