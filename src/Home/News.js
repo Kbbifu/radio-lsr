@@ -77,7 +77,7 @@ function News() {
                 <div className='newsCard'>
                   <img src={latestNews.photo} alt={latestNews.title} style={imageStyle} />
                   
-                </div>
+               
                 {latestNews.content?.split('\n').map((paragraph, index) => (
                   <p
                     key={index}
@@ -87,6 +87,7 @@ function News() {
                     {paragraph}
                   </p>
                 ))}
+                </div>
             </div>
 
           )}
