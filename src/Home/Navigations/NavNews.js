@@ -83,7 +83,7 @@ function NavNews() {
                 <div className='card-mobile'>
                   <Link to={`/news/${item.id}`} key={item.id}>
                   <div className='newsCardImage_mobile'>
-                    <img src={item.image} alt='' style={imageStyleMobile} />
+                    <img src={item.photo} alt='' style={imageStyleMobile} />
                   </div>
                   <div className='profileInfo'>
                     <h3 style={headerColor} className='textLimit'>
