@@ -75,22 +75,22 @@ function NavNews() {
         </div>
       </div>
       <div className='page-container-mobile'>
-        <h1 className='headersFont'>Actualités</h1>
+        <h1 className='headersFont'>TOUTE L'ACTUALITE</h1>
         <div className='gridcontainer'>
           <div className='newsGrid-shows'>
             {data.slice(0, visible).map((item) => {
               return (
                 <div className='card-mobile'>
                   <Link to={`/news/${item.id}`} key={item.id}>
-                  <div className='newsCardImage_mobile'>
-                    <img src={item.photo} alt='' style={imageStyleMobile} />
-                  </div>
-                  <div className='profileInfo'>
-                    <h3 style={headerColor} className='textLimit'>
-                      {item.title}
-                    </h3>
-                  </div>
-                  </Link>
+                    <div className='newsCardImage_mobile'>
+                      <img src={item.photo} alt='' style={imageStyleMobile} />
+                    </div>
+                    <div className='profileInfo'>
+                      <h3 style={headerColor} className='textLimit'>
+                        {item.title}
+                      </h3>
+                    </div>
+                    </Link>
                 </div>
               );
             })}
