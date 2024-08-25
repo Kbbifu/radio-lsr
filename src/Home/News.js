@@ -50,11 +50,11 @@ function News() {
     borderRadius:'10px',
     objectFit:'contain'
    }
-         const card = {
-           width: 'auto',
-           height: '300px',
-           borderRadius: '10px',
-         };
+  const newsCard = {
+    width: 'auto',
+    height: '300px',
+    borderRadius: '10px',
+    }
     const linkStyle = {
       textDecoration: 'none'
     }
