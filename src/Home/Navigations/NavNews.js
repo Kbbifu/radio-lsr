@@ -40,6 +40,12 @@ function NavNews() {
     borderRadius: '10px',
     objectFit: 'cover',
   };
+  const imageStyleMobile = {
+    width: '100%',
+    height: '200px',
+    borderRadius: '10px',
+    objectFit: 'cover',
+  };
 
   return (
     <div style={{  color: 'black' }}>
@@ -90,7 +96,7 @@ function NavNews() {
                         {item.title}
                       </h3>
                     </div>
-                    </Link>
+                  </Link>
                 </div>
               );
             })}
