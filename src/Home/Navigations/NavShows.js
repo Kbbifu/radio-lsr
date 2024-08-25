@@ -76,7 +76,7 @@ function NavShows() {
                 
               </div>
               <div>
-                <p>Présentateur: {item.presenter}</p> {/* Ajout du champ Auteur */}
+                <p>Par: {item.presenter}</p> {/* Ajout du champ Auteur */}
                 
               </div>
             </div>
@@ -97,7 +97,7 @@ function NavShows() {
                   
                 </div>
                 <div>
-                  <p>Présentateur: {item.presenter}</p> {/* Ajout du champ Auteur */}
+                  <p>Par: {item.presenter}</p> {/* Ajout du champ Auteur */}
                   
                 </div>
               </div>
