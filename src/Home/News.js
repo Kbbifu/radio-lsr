@@ -64,9 +64,9 @@ function News() {
     <div>
       
       <div className='gencontainer'>
-        <div className='gridcontainer'>
         
-          
+        
+          {latestNews && (
             <div className='latestNews'>
                 <div className='newsCardHeader'>
                     <h3 style={headerColor} className='textLimit'>
@@ -89,7 +89,7 @@ function News() {
                 ))}
             </div>
 
-          
+          )}
        
           {/* A LA UNE SECTION */}
           <div className='aLaUne'>
@@ -137,7 +137,7 @@ function News() {
           </div>
           
         </div>
-      </div>
+      
     </div>
   );
 }
