@@ -77,7 +77,7 @@ function News() {
                 <div className='newsCard'>
                   <img src={latestNews.photo} alt={latestNews.title} style={imageStyle} />
                   
-                </div> 
+                </div>
                 {latestNews.content?.split('\n').map((paragraph, index) => (
                   <p
                     key={index}
