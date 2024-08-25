@@ -88,7 +88,7 @@ function NavPresenters() {
         <h1 className='Presenter-header headersFont'>Animateurs</h1>
         <div className='gridcontainer' style={spacer}>
           <div className='newsGrid-shows'>
-            {data.slice(0, visible).map((item) => {
+            {presenters.slice(0, visible).map((item) => {
               return (
                 <div className='card-mobile'>
                   <div className='newsCardImage_mobile'>
