@@ -44,7 +44,7 @@ function NavNews() {
   return (
     <div style={{  color: 'black' }}>
       <Nav />
-      <HomeBanner backgroundColor='rgb(58, 9, 155)'/>
+      <HomeBanner />
       <div className="presenterPage-container">
         <h1 className="headersFont" color="black">TOUTE L'ACTUALITE</h1>
         <div className="gridcontainer">
