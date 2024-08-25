@@ -8,6 +8,37 @@ import HomeBanner from '../HomeBanner';
 function NavPresenters() {
   const [presenters, setPresenters] = useState([]);
   const [visible, setVisible] = useState(4);
+  const showMoreItems = () => {
+    setVisible((previousValue) => previousValue + 4);
+  };
+  const headerColor = {
+    color: 'white',
+    overFlowY: 'hidden',
+  };
+  const imageStyle = {
+    width: '100%',
+    height: '100%',
+    borderRadius: '10px',
+  };
+   const imageStyleMobile = {
+     width: '100%',
+     height: '200px',
+     borderRadius: '10px',
+     objectFit: 'cover',
+   };
+  const round={
+    width:'200px',
+    height:'200px',
+    borderRadius:'50%',
+    backgroundColor:'white'
+  }
+  const spacer ={
+    marginBottom:'40px'
+  }
+  const mybg = {
+     backgroundColor: 'white',
+     color: 'black',
+     };
 
   // Fetch presenters from Firestore
   useEffect(() => {
@@ -28,16 +59,9 @@ function NavPresenters() {
     fetchPresenters();
   }, []);
 
-  const imageStyleMobile = {
-    width: '100%',
-    height: '200px',
-    borderRadius: '10px',
-    objectFit: 'cover',
-  };
+  
 
-  const showMoreItems = () => {
-    setVisible((prevValue) => prevValue + 4);
-  };
+  
 
   return (
     <div>
@@ -61,7 +85,36 @@ function NavPresenters() {
           ))}
         </div>
       </div>
-      
+      <div className='page-container-mobile'>
+        <h1 className='Presenter-header headersFont'>Animateurs</h1>
+        <div className='gridcontainer' style={spacer}>
+          <div className='newsGrid-shows'>
+            {data.slice(0, visible).map((item) => {
+              return (
+                <div className='card-mobile'>
+                  <div className='newsCardImage_mobile'>
+                    {/* <div style={round}></div> */}
+                    <img src={item.photo} alt='' style={imageStyleMobile} />
+                  </div>
+                  <div className='profileInfo'>
+                    <h3 style={headerColor} className='textLimit'>
+                      {item.name}
+                    </h3>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className='NewmoreBtn'>
+          <button className='viewmore' onClick={showMoreItems}>
+            <span style={{ marginRight: '10px' }}>
+              <img src='viewMore_icon.png' alt='' className='btnicon' />
+            </span>
+            <span style={{ color: 'white' }}>Voir plus</span>
+          </button>
+        </div>
+      </div>
       <Footer />
     </div>
   );
