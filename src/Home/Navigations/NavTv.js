@@ -77,6 +77,35 @@ function NavTv() {
         </div>
       </div>
       </div>
+
+      <div className='page-container-mobile'>
+      <div style={{ padding: '20px' }}>
+        <Box sx={{ display: 'flex', overflowX: 'auto', gap: '20px' }}>
+          {jours.map(jour => (
+            <div 
+              key={jour} 
+              style={{ minWidth: '200px', cursor: 'pointer' }} 
+              onClick={() => setSelectedJour(jour)} // Mettre à jour le jour sélectionné
+            >
+              <Typography 
+                variant="h4" 
+                style={{ marginBottom: '20px', color: jour === selectedJour ? 'red' : 'black', textAlign: 'center' }}
+              >
+                {jour}
+              </Typography>
+            </div>
+          ))}
+        </Box>
+        <div>
+          {renderSchedule(selectedJour)} {/* Affiche le programme du jour sélectionné */}
+        </div>
+        <div className='moreBtn'>
+          <Button variant="contained" onClick={showMoreItems} style={{ marginTop: '20px' }}>
+            Voir plus
+          </Button>
+        </div>
+      </div>
+      </div>
       <Footer />
     </div>
   );
