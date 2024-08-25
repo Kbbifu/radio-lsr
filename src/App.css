@@ -573,6 +573,7 @@ align-items: center;
 
 .page-container-mobile{
   display: none;
+  background-color: white;
 }
 
 .presenterContainer{
@@ -1126,7 +1127,7 @@ align-items: center;
   padding: 5px 20px 30px;
   border-bottom: 1px solid darkgray;
   color: black;
-  background-color: whitesmoke;
+  background-color: white;
 }
 .gridcontainer{
   width: 90%;
@@ -1200,6 +1201,7 @@ align-items: center;
 .page-container-mobile{
   display: block;
   padding: 20px 20px 30px;
+  background-color: white;
 }
 
 .presenterProfileHolder{
