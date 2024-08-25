@@ -8,6 +8,26 @@ import HomeBanner from '../HomeBanner';
 function NavPresenters() {
   const [presenters, setPresenters] = useState([]);
   const [visible, setVisible] = useState(4);
+
+  // Fetch presenters from Firestore
+  useEffect(() => {
+    const fetchPresenters = async () => {
+      try {
+        const presentersCollection = collection(db, 'presenters');
+        const presentersSnapshot = await getDocs(presentersCollection);
+        const presentersList = presentersSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPresenters(presentersList);
+      } catch (error) {
+        console.error('Error fetching presenters:', error);
+      }
+    };
+
+    fetchPresenters();
+  }, []);
+
   const showMoreItems = () => {
     setVisible((previousValue) => previousValue + 4);
   };
@@ -39,27 +59,6 @@ function NavPresenters() {
      backgroundColor: 'white',
      color: 'black',
      };
-
-  // Fetch presenters from Firestore
-  useEffect(() => {
-    const fetchPresenters = async () => {
-      try {
-        const presentersCollection = collection(db, 'presenters');
-        const presentersSnapshot = await getDocs(presentersCollection);
-        const presentersList = presentersSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setPresenters(presentersList);
-      } catch (error) {
-        console.error('Error fetching presenters:', error);
-      }
-    };
-
-    fetchPresenters();
-  }, []);
-
-  
 
   
 
