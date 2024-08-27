@@ -1,7 +1,9 @@
 {
   "name": "lsr_fm",
+  "homepage":"http://radio-lsr.net/",
   "version": "0.1.0",
   "private": true,
+  
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
