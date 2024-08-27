@@ -38,9 +38,9 @@ function PresenterDetails() {
           <img src={presenter.photo} alt={presenter.name} style={{ width: '100%', height: '100%', borderRadius: '10px' }} />
         </div>
         <p className='banner-content author'>
-          {presenter.name} <span>{presenter.date}</span>
+          {presenter.name} 
         </p>
-        <p className='banner-content'>{presenter.biography}</p>
+        <p className='banner-content'>{presenter.bio}</p>
         <Link to={-1}>
           <button className='btn'>Retour</button>
         </Link>
