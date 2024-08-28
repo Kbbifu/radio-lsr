@@ -149,7 +149,7 @@ function Radio() {
 
       <div className='radio'>
         <iframe
-          src='https://zeno.fm/radio/living-stone-radio-nqu6/'
+          src='https://zeno.fm/radio/living-stone-radio-fm/'
           width='100%'
           height='100%'
           frameBorder='0'
