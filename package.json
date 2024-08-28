@@ -1,6 +1,6 @@
 {
   "name": "lsr_fm",
-  "homepage":"https://radio-lsr.net/",
+  "homepage":"http://radio-lsr.net/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
