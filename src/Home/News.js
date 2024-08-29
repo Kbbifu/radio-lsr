@@ -11,7 +11,7 @@ function News() {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const newsCollection = collection(db, 'news');
+      const newsCollection = collection(db, 'news', id);
       
       // Fetch the latest news
       const latestQuery = query(newsCollection, orderBy('publishedDate', 'desc'), limit(1));
