@@ -95,15 +95,16 @@ function News() {
           <div className='aLaUne'>
             <h2>A LA UNE</h2>
             <div className='newsGrid'>
-              {aLaUneNews.map((news) => (
-                <Link to={`/news/${ aLaUneNews.id}`} key={aLaUneNews.id} className='newLink'>
+            {aLaUneNews && aLaUneNews.map((news) => (
+                <Link to={`/news/${news.id}`} key={news.id} className='newLink'>
+                
                   <div className='newsCard'>
-                    <img src={aLaUneNews.photo} alt={aLaUneNews.title} style={imageStyle}/>
+                    <img src={news.photo} alt={news.title} style={imageStyle}/>
                     
                   </div>
                   <div className='newsCardHeader'>
                     <h3 style={headerColor} className='textLimit'>
-                      {aLaUneNews.title}
+                      {news.title}
                     </h3>
                   </div>
                 </Link>
