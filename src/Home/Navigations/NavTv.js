@@ -9,7 +9,7 @@ import { Button, Typography, Box } from '@mui/material';
 function NavTv() {
   const [schedules, setSchedules] = useState([]);
   const [visible, setVisible] = useState(4);
-  const [selectedJour, setSelectedJour] = useState('Lundi'); // Initialisez avec 'Lundi' ou le jour que vous voulez par défaut
+  const [selectedJour, setSelectedJour] = useState('Lundi'); // Initialize with 'Lundi' or any default day
   const jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
   useEffect(() => {
@@ -28,7 +28,14 @@ function NavTv() {
   };
 
   const renderSchedule = (jour) => {
-    const filteredSchedule = schedules.filter(schedule => schedule.jour === jour);
+    const filteredSchedule = schedules
+      .filter(schedule => schedule.jour === jour)
+      .sort((a, b) => {
+        const timeA = parseInt(a.startTime.replace(':', ''), 10);
+        const timeB = parseInt(b.startTime.replace(':', ''), 10);
+        return timeA - timeB;
+      });
+
     return (
       <div>
         {filteredSchedule.slice(0, visible).map(schedule => (
@@ -50,61 +57,61 @@ function NavTv() {
       <Nav />
       <HomeBanner />
       <div className='presenterPage-container'>
-      <div style={{ padding: '20px' }}>
-        <Box sx={{ display: 'flex', overflowX: 'auto', gap: '20px' }}>
-          {jours.map(jour => (
-            <div 
-              key={jour} 
-              style={{ minWidth: '200px', cursor: 'pointer' }} 
-              onClick={() => setSelectedJour(jour)} // Mettre à jour le jour sélectionné
-            >
-              <Typography 
-                variant="h4" 
-                style={{ marginBottom: '20px', color: jour === selectedJour ? 'red' : 'black', textAlign: 'center' }}
+        <div style={{ padding: '20px' }}>
+          <Box sx={{ display: 'flex', overflowX: 'auto', gap: '20px' }}>
+            {jours.map(jour => (
+              <div 
+                key={jour} 
+                style={{ minWidth: '200px', cursor: 'pointer' }} 
+                onClick={() => setSelectedJour(jour)} // Update selected day
               >
-                {jour}
-              </Typography>
-            </div>
-          ))}
-        </Box>
-        <div>
-          {renderSchedule(selectedJour)} {/* Affiche le programme du jour sélectionné */}
+                <Typography 
+                  variant="h4" 
+                  style={{ marginBottom: '20px', color: jour === selectedJour ? 'red' : 'black', textAlign: 'center' }}
+                >
+                  {jour}
+                </Typography>
+              </div>
+            ))}
+          </Box>
+          <div>
+            {renderSchedule(selectedJour)} {/* Display schedule for the selected day */}
+          </div>
+          <div className='moreBtn'>
+            <Button variant="contained" onClick={showMoreItems} style={{ marginTop: '20px' }}>
+              Voir plus
+            </Button>
+          </div>
         </div>
-        <div className='moreBtn'>
-          <Button variant="contained" onClick={showMoreItems} style={{ marginTop: '20px' }}>
-            Voir plus
-          </Button>
-        </div>
-      </div>
       </div>
 
       <div className='page-container-mobile'>
-      <div style={{ padding: '20px' }}>
-        <Box sx={{ display: 'flex', overflowX: 'auto', gap: '20px' }}>
-          {jours.map(jour => (
-            <div 
-              key={jour} 
-              style={{ minWidth: '200px', cursor: 'pointer' }} 
-              onClick={() => setSelectedJour(jour)} // Mettre à jour le jour sélectionné
-            >
-              <Typography 
-                variant="h4" 
-                style={{ marginBottom: '20px', color: jour === selectedJour ? 'red' : 'black', textAlign: 'center' }}
+        <div style={{ padding: '20px' }}>
+          <Box sx={{ display: 'flex', overflowX: 'auto', gap: '20px' }}>
+            {jours.map(jour => (
+              <div 
+                key={jour} 
+                style={{ minWidth: '200px', cursor: 'pointer' }} 
+                onClick={() => setSelectedJour(jour)} // Update selected day
               >
-                {jour}
-              </Typography>
-            </div>
-          ))}
-        </Box>
-        <div>
-          {renderSchedule(selectedJour)} {/* Affiche le programme du jour sélectionné */}
+                <Typography 
+                  variant="h4" 
+                  style={{ marginBottom: '20px', color: jour === selectedJour ? 'red' : 'black', textAlign: 'center' }}
+                >
+                  {jour}
+                </Typography>
+              </div>
+            ))}
+          </Box>
+          <div>
+            {renderSchedule(selectedJour)} {/* Display schedule for the selected day */}
+          </div>
+          <div className='moreBtn'>
+            <Button variant="contained" onClick={showMoreItems} style={{ marginTop: '20px' }}>
+              Voir plus
+            </Button>
+          </div>
         </div>
-        <div className='moreBtn'>
-          <Button variant="contained" onClick={showMoreItems} style={{ marginTop: '20px' }}>
-            Voir plus
-          </Button>
-        </div>
-      </div>
       </div>
       <Footer />
     </div>
