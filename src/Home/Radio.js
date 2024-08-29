@@ -9,6 +9,7 @@ function Radio() {
   const [time, setTime] = useState(new Date());
   const [onAirShow, setOnAirShow] = useState('');
   const [upNextPresenter, setUpNextPresenter] = useState('');
+  const [currentBadge, setCurrentBadge] = useState(''); // State to hold the badge URL
 
   // Fetch schedule data from Firestore
   useEffect(() => {
@@ -35,7 +36,7 @@ function Radio() {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [time]); // Add `time` as a dependency to refresh the schedule when time updates
 
   const findCurrentShow = (schedulesList) => {
     const currentTime = time.toLocaleTimeString('fr-FR', { hour12: false });
@@ -60,9 +61,11 @@ function Radio() {
     if (currentShow) {
       setOnAirShow(currentShow.title);
       setUpNextPresenter(nextShow ? nextShow.presenter : '');
+      setCurrentBadge(currentShow.imageUrl); // Set the badge URL for the current show
     } else {
       setOnAirShow('Aucune émission');
       setUpNextPresenter('Aucun animateur');
+      setCurrentBadge(''); // Clear the badge if no show is on air
     }
   };
 
@@ -155,7 +158,7 @@ function Radio() {
           frameBorder='0'
           scrolling='no'
         ></iframe>
-        <img src='/IMG-20240731-WA0051.jpg' alt='' />
+        {currentBadge && <img src={currentBadge} alt='Current Show Badge' />} {/* Display the badge if available */}
       </div>
       <Footer />
     </div>
